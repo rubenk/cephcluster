@@ -1,0 +1,25 @@
+---
+- hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Upgrade all the things
+      dnf:
+        name: '*'
+        state: latest
+
+    - name: Install needed packages
+      dnf:
+        name:
+          - lvm2
+          - podman
+          - python36
+          - vim-enhanced
+        state: latest
+
+    - name: Install cephadm
+      get_url:
+        url: https://raw.githubusercontent.com/ceph/ceph/v16.2.7/src/cephadm/cephadm
+        dest: /usr/bin/cephadm
+        checksum: sha256:236e76cdb89429f3cf1d47abb5ac6d9d68a93cc10502b7181d02e4b768848c65
+        mode: '0750'
