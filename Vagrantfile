@@ -4,6 +4,7 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = 'https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-Vagrant-8-20220125.1.x86_64.vagrant-libvirt.box'
   config.vm.box = 'centos/stream8'
   config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.ssh.forward_agent = true
 
   config.vm.provider :libvirt do |v|
     v.cpu_mode = 'host-passthrough'
