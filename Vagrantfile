@@ -16,6 +16,8 @@ Vagrant.configure("2") do |config|
     v.memballoon_enabled = false
     v.qemu_use_agent = true
     v.channel :type => 'unix', :target_name => 'org.qemu.guest_agent.0', :target_type => 'virtio'
+    v.storage :file
+    v.storage :file
   end
 
   ansible_provision = proc do |ansible|
