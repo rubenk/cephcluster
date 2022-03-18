@@ -27,7 +27,7 @@
         url: https://raw.githubusercontent.com/ceph/ceph/v16.2.7/src/cephadm/cephadm
         dest: /usr/bin/cephadm
         checksum: sha256:236e76cdb89429f3cf1d47abb5ac6d9d68a93cc10502b7181d02e4b768848c65
-        mode: '0750'
+        mode: '0755'
 
     - name: Add my ssh key
       ansible.posix.authorized_key:
