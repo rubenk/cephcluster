@@ -28,3 +28,23 @@
       ansible.posix.authorized_key:
         user: vagrant
         key: https://github.com/rubenk.keys
+
+    - name: Enable ipv6
+      lineinfile:
+        path: /etc/sysconfig/network-scripts/ifcfg-eth1
+        line: 'IPV6INIT="yes"'
+
+    - name: Configure ipv6 ip
+      lineinfile:
+        path: /etc/sysconfig/network-scripts/ifcfg-eth1
+        line: 'IPV6ADDR="{{ ipv6_ips[inventory_hostname] }}"'
+      notify:
+        - Bounce eth1
+
+
+  handlers:
+    - name: Bounce eth1
+      shell: "ifdown eth1; ifup eth1"
+      
+
+
