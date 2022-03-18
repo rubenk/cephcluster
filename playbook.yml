@@ -42,6 +42,11 @@
         - Bounce eth1
 
 
+    - name: Allow vagrant user to use ping
+      ansible.posix.sysctl:
+        name: net.ipv4.ping_group_range
+        value: "1000 1000"
+
   handlers:
     - name: Bounce eth1
       shell: "ifdown eth1; ifup eth1"
