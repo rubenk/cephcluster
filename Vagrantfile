@@ -1,5 +1,7 @@
 # vi: set ft=ruby :
 
+require 'securerandom'
+
 Vagrant.configure("2") do |config|
   config.vm.box_url = 'https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-Vagrant-8-20220125.1.x86_64.vagrant-libvirt.box'
   config.vm.box = 'centos/stream8'
@@ -16,8 +18,8 @@ Vagrant.configure("2") do |config|
     v.memballoon_enabled = false
     v.qemu_use_agent = true
     v.channel :type => 'unix', :target_name => 'org.qemu.guest_agent.0', :target_type => 'virtio'
-    v.storage :file
-    v.storage :file
+    v.storage :file, :serial => SecureRandom.uuid
+    v.storage :file, :serial => SecureRandom.uuid
   end
 
   ansible_provision = proc do |ansible|
