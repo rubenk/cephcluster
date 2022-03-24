@@ -56,3 +56,6 @@
         path: /etc/hosts
         line: "{{ item.value | replace('/64', '') }} {{ item.key }}"
       loop: "{{ ipv6_ips | dict2items }}"
+
+    - name: make vdc non-rotational for rocksdb
+      shell: echo 0 > /sys/block/vdc/queue/rotational
