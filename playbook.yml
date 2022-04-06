@@ -13,6 +13,20 @@
         name: '*'
         state: latest
 
+    - name: add ceph repo
+      yum_repository:
+        name: 'Ceph'
+        description: 'Ceph $basearch'
+        baseurl: 'https://download.ceph.com/rpm-nautilus/el8/$basearch'
+        gpgkey: 'https://download.ceph.com/keys/release.gpg'
+
+    - name: add ceph noarch repo
+      yum_repository:
+        name: 'Ceph-noarch'
+        description: 'Ceph noarch'
+        baseurl: 'https://download.ceph.com/rpm-nautilus/el8/noarch'
+        gpgkey: 'https://download.ceph.com/keys/release.gpg'
+
     - name: Install needed packages
       dnf:
         name:
@@ -20,6 +34,13 @@
           - podman
           - python36
           - vim-enhanced
+          - epel-next-release
+          - epel-release
+        state: latest
+
+    - name: Install ceph
+      dnf:
+        name: ceph
         state: latest
 
     - name: Install cephadm
