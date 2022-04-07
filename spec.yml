@@ -1,0 +1,27 @@
+service_type: crash
+service_name: crash
+placement:
+  host_pattern: '*'
+---
+service_type: mgr
+service_name: mgr
+placement:
+  count: 2
+---
+service_type: mon
+service_name: mon
+placement:
+  count: 3
+---
+service_type: osd
+service_name: osd.default
+service_id: default
+placement:
+  host_pattern: '*'
+spec:
+  data_devices:
+    rotational: 1
+  db_devices:
+    rotational: 0
+  filter_logic: OR
+  objectstore: bluestore
