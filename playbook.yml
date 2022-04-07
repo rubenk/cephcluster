@@ -6,6 +6,8 @@
   handlers:
     - name: Bounce eth1
       shell: "ifdown eth1; ifup eth1"
+    - name: Trigger udev
+      shell: udevadm trigger
 
   tasks:
     - name: Upgrade all the things
@@ -58,4 +60,10 @@
       loop: "{{ ipv6_ips | dict2items }}"
 
     - name: make vdc non-rotational for rocksdb
-      shell: echo 0 > /sys/block/vdc/queue/rotational
+      ansible.builtin.template:
+        src: 60-ssd.rules.j2
+        dest: /etc/udev/rules.d/60-ssd.rules
+        owner: root
+        group: root
+        mode: '0640'
+      notify: Trigger udev
